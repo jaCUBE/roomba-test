@@ -11,7 +11,7 @@ class Roomba
     /**
      * @var array Loaded JSON data and parsed into an array
      */
-    public $loaded;
+    public $data;
 
     /**
      * @var Navigator $navigator Roomba's sense in the room
@@ -26,12 +26,12 @@ class Roomba
 
     /**
      * Roomba constructor.
-     * @param String $filepath Filepath to load init JSON
+     * @param string $data_json Input data
      */
 
-    public function __construct(String $filepath)
+    public function __construct(string $data_json)
     {
-        $this->loaded = JSON::load($filepath);
+        $this->data = json_decode($data_json, true);
 
         $this->initBattery();
         $this->initNavigator();
@@ -44,7 +44,7 @@ class Roomba
 
     protected function initBattery(): void
     {
-        $this->battery = new Battery($this->loaded['battery']);
+        $this->battery = new Battery($this->data['battery']);
     }
 
 
@@ -55,10 +55,10 @@ class Roomba
     protected function initNavigator(): void
     {
         // Map of the room
-        $map = new Map($this->loaded['map']);
+        $map = new Map($this->data['map']);
 
         // Starting position
-        $start = &$this->loaded['start'];
+        $start = &$this->data['start'];
         $position = new Position($start['X'], $start['Y'], $start['facing']);
 
         // Instance of Navigator
