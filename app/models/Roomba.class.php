@@ -87,7 +87,7 @@ class Roomba
             // @TODO Back command
             $this->battery->drain(3);
         } elseif ($command == 'C') {
-            // @TODO Clean command
+            $this->navigator->clean();
             $this->battery->drain(5);
         }
     }

@@ -21,7 +21,12 @@ class Navigator
     /**
      * @var Position[] List of visited position
      */
-    public $history = [];
+    public $visited = [];
+
+    /**
+     * @var Position[] List of cleaned position
+     */
+    public $cleaned = [];
 
 
     /**
@@ -35,16 +40,6 @@ class Navigator
         $this->map = $map;
         $this->position = $position;
         $this->addVisited();
-    }
-
-    /**
-     *  Adds current position into the history of visited.
-     */
-
-    private function addVisited(): void
-    {
-        $position_current = clone $this->position;
-        $this->history = array_merge([$position_current], $this->history);
     }
 
     /**
@@ -68,6 +63,7 @@ class Navigator
         }
     }
 
+
     /**
      * Facade for position turn to the right.
      */
@@ -83,6 +79,27 @@ class Navigator
     public function turnLeft(): void
     {
         $this->position->turnLeft();
+    }
+
+
+    /**
+     *  Adds current position into the history of visited.
+     */
+
+    private function addVisited(): void
+    {
+        $position_current = clone $this->position;
+        $this->visited = array_merge([$position_current], $this->visited);
+    }
+
+    /**
+     *  Adds current position into the history of visited.
+     */
+
+    public function clean(): void
+    {
+        $position_current = clone $this->position;
+        $this->cleaned = array_merge([$position_current], $this->cleaned);
     }
 
 }

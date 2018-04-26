@@ -30,8 +30,16 @@ class Output
         $export = [];
 
         // Visited positions
-        foreach ($roomba->navigator->history as $position) {
+        foreach ($roomba->navigator->visited as $position) {
             $export['visited'][] = [
+                'X' => $position->x,
+                'Y' => $position->y
+            ];
+        }
+
+        // Cleaned
+        foreach ($roomba->navigator->cleaned as $position) {
+            $export['cleaned'][] = [
                 'X' => $position->x,
                 'Y' => $position->y
             ];
