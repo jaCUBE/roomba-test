@@ -39,8 +39,11 @@ class Command
      */
     static function TL(Roomba $roomba): Roomba
     {
-        $roomba->navigator->turnLeft();
-        $roomba->battery->drain(Command::batteryCost('TL'));
+        // Turns left only with enough battery
+        if ($roomba->battery->isCharged(Command::batteryCost('TL'))) {
+            $roomba->navigator->turnLeft();
+            $roomba->battery->drain(Command::batteryCost('TL'));
+        }
 
         return $roomba;
     }
@@ -52,8 +55,11 @@ class Command
      */
     static function TR(Roomba $roomba): Roomba
     {
-        $roomba->navigator->turnRight();
-        $roomba->battery->drain(Command::batteryCost('TR'));
+        // Turns right only with enough battery
+        if ($roomba->battery->isCharged(Command::batteryCost('TR'))) {
+            $roomba->navigator->turnRight();
+            $roomba->battery->drain(Command::batteryCost('TR'));
+        }
 
         return $roomba;
     }
@@ -65,8 +71,12 @@ class Command
      */
     static function A(Roomba $roomba): Roomba
     {
-        $roomba->navigator->advance();
-        $roomba->battery->drain(Command::batteryCost('A'));
+        // Performs advance only with enough battery
+        if ($roomba->battery->isCharged(Command::batteryCost('A'))) {
+            $roomba->navigator->advance();
+            $roomba->battery->drain(Command::batteryCost('A'));
+        }
+
         return $roomba;
     }
 
@@ -77,8 +87,12 @@ class Command
      */
     static function B(Roomba $roomba): Roomba
     {
-        // @TODO Back command
-        $roomba->battery->drain(Command::batteryCost('B'));
+        // Goes back only with enough battery
+        if ($roomba->battery->isCharged(Command::batteryCost('B'))) {
+            // @TODO Back command
+            $roomba->battery->drain(Command::batteryCost('B'));
+        }
+
         return $roomba;
     }
 
@@ -91,8 +105,12 @@ class Command
 
     static function C(Roomba $roomba): Roomba
     {
-        $roomba->navigator->clean();
-        $roomba->battery->drain(Command::batteryCost('C'));
+        // Cleans only with enough battery
+        if ($roomba->battery->isCharged(Command::batteryCost('C'))) {
+            $roomba->navigator->clean();
+            $roomba->battery->drain(Command::batteryCost('C'));
+        }
+
         return $roomba;
     }
 
