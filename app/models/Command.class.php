@@ -8,6 +8,30 @@
 
 class Command
 {
+
+    /**
+     * @var array Battery cost for every possible command
+     */
+    static public $battery_cost = [
+        'TL' => 1,
+        'TR' => 1,
+        'A' => 2,
+        'B' => 3,
+        'C' => 5
+    ];
+
+
+    /**
+     * Gets battery cost for command.
+     * @param string $command Command
+     * @return int Battery cost
+     */
+
+    static function batteryCost(string $command): int
+    {
+        return (int)@self::$battery_cost[$command];
+    }
+
     /**
      * Turn left.
      * @param Roomba $roomba Roomba
@@ -16,7 +40,7 @@ class Command
     static function TL(Roomba $roomba): Roomba
     {
         $roomba->navigator->turnLeft();
-        $roomba->battery->drain(1);
+        $roomba->battery->drain(Command::batteryCost('TL'));
 
         return $roomba;
     }
@@ -29,7 +53,7 @@ class Command
     static function TR(Roomba $roomba): Roomba
     {
         $roomba->navigator->turnRight();
-        $roomba->battery->drain(1);
+        $roomba->battery->drain(Command::batteryCost('TR'));
 
         return $roomba;
     }
@@ -42,7 +66,7 @@ class Command
     static function A(Roomba $roomba): Roomba
     {
         $roomba->navigator->advance();
-        $roomba->battery->drain(2);
+        $roomba->battery->drain(Command::batteryCost('A'));
         return $roomba;
     }
 
@@ -54,7 +78,7 @@ class Command
     static function B(Roomba $roomba): Roomba
     {
         // @TODO Back command
-        $roomba->battery->drain(3);
+        $roomba->battery->drain(Command::batteryCost('B'));
         return $roomba;
     }
 
@@ -68,7 +92,7 @@ class Command
     static function C(Roomba $roomba): Roomba
     {
         $roomba->navigator->clean();
-        $roomba->battery->drain(5);
+        $roomba->battery->drain(Command::batteryCost('C'));
         return $roomba;
     }
 
