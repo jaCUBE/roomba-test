@@ -42,7 +42,7 @@ class Roomba
      * Creates Roomba's battery.
      */
 
-    private function initBattery(): void
+    protected function initBattery(): void
     {
         $this->battery = new Battery($this->loaded['battery']);
     }
@@ -52,7 +52,7 @@ class Roomba
      * Creates Navigator inside Roomba's brain.
      */
 
-    private function initNavigator(): void
+    protected function initNavigator(): void
     {
         // Map of the room
         $map = new Map($this->loaded['map']);
@@ -63,33 +63,6 @@ class Roomba
 
         // Instance of Navigator
         $this->navigator = new Navigator($map, $position);
-    }
-
-
-    /**
-     * Executes the command.
-     * @param string $command Command
-     */
-
-    public function execute(string $command)
-    {
-        // @TODO Refactor this into commander class
-        if ($command == 'TL') {
-            $this->navigator->turnLeft();
-            $this->battery->drain(1);
-        } elseif ($command == 'TR') {
-            $this->navigator->turnRight();
-            $this->battery->drain(1);
-        } elseif ($command == 'A') {
-            $this->navigator->advance();
-            $this->battery->drain(2);
-        } elseif ($command == 'B') {
-            // @TODO Back command
-            $this->battery->drain(3);
-        } elseif ($command == 'C') {
-            $this->navigator->clean();
-            $this->battery->drain(5);
-        }
     }
 
 

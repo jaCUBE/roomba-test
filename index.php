@@ -18,15 +18,11 @@
 
     require_once 'bootstrap.php';
 
-    $r = new Roomba('resources/test1.json');
-
-
-    foreach ($r->loaded['commands'] as $command) {
-        $r->execute($command);
-    }
-    d(Output::json($r));
-    JSON::save('resources/output1.json', Output::json($r));
+    $r = new Roomba('resources/my_test1.json');
+    $r = Command::execute($r, ['A', 'A']);
     d($r);
+
+    JSON::save('resources/my_output1.json', Output::json($r));
 
     ?>
 </div>
