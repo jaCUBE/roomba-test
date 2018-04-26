@@ -1,27 +1,55 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: jaCUBE
- * Date: 26.04.2018
- * Time: 16:36
+ * Battery for lil' Roomba.
+ * @class Battery
+ * @author Jakub Rychecký <jakub@rychecky.cz>
  */
 
 class Battery
 {
-    protected $level;
+    /**
+     * @var int $level Battery level
+     */
+    public $level;
 
+
+    /**
+     * Battery constructor.
+     * @param int $level Starting battery level
+     */
     public function __construct(int $level)
     {
         $this->level = $level;
     }
 
-    public function drain(int $step): void
+
+    /**
+     * Drains battery level.
+     * @param int $step Step for battery drain
+     * @return bool Has been drain successful?
+     */
+
+    public function drain(int $step): bool
     {
-        $this->level -= $step;
+        // Only when there is enough charge, it drains...
+        if ($this->isCharged($step)) {
+            $this->level -= $step;
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function current(): int
+
+    /**
+     * Does battery contain enough charge for drain?
+     * @param int $threshold Desired step for drain
+     * @return bool Is battery charged enough?
+     */
+
+    public function isCharged(int $threshold = 0)
     {
-        return $this->level;
+        return $this->level >= $threshold;
     }
 }

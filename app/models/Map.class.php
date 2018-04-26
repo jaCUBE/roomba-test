@@ -1,33 +1,48 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: jaCUBE
- * Date: 26.04.2018
- * Time: 16:26
+ * Map for of the room... for Roomba.
+ * @class Map
+ * @author Jakub Rychecký <jakub@rychecky.cz>
  */
 
 class Map
 {
+    /**
+     * @var array $map Map in the form matrix as inputted
+     */
     public $map = [];
 
+
+    /**
+     * Map constructor.
+     * @param array $map Map in the form of matrix
+     */
     public function __construct(array $map)
     {
         $this->map = $map;
     }
 
-    public function getStatus($x, $y)
+
+    /**
+     * Checks if designated position is not an obstacle or outside of map.
+     * @param Position $position Designated position
+     * @return bool Is position valid?
+     */
+
+    public function isPositionValid(Position $position)
     {
-        return $this->map[$x][$y];
+        return $this->isReachable($position->x, $position->y);
     }
 
-    public function isFree($x, $y)
+    /**
+     * Checks if coordinates is reachable surface and not an obstacle or a wall.
+     * @param int $x Coord X
+     * @param int $y Coord Y
+     * @return bool Is reachable surface?
+     */
+    public function isReachable(int $x, int $y): bool
     {
-        return @$this->getStatus($x, $y) !== null;
+        return @$this->map[$x][$y] !== null;
     }
-
-    public function isCleanable($x, $y)
-    {
-        return $this->getStatus($x, $y) == 'S';
-    }
-
 }

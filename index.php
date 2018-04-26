@@ -18,16 +18,25 @@
 
     require_once 'bootstrap.php';
 
-    $r = new Roomba('resources/test1.json', 'resources/output.json');
+    $r = new Roomba('resources/test1.json');
+    JSON::save('resources/output1.json', Output::json($r));
+
+    $r = new Roomba('resources/test2.json');
+    JSON::save('resources/output2.json', Output::json($r));
+
     d($r);
 
-    foreach($r->data_input['commands'] as $command){
+    foreach ($r->loaded['commands'] as $command) {
         $r->execute($command);
         d($command);
         d($r->navigator->position);
     }
 
-    d($r->output());
+
+    $p = new Position(3, 0, 'N');
+    d($p);
+    d($p->buildAdvancePosition());
+    d($p);
 
     ?>
 </div>

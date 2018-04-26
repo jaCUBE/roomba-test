@@ -1,9 +1,9 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: jaCUBE
- * Date: 26.04.2018
- * Time: 16:59
+ * Navigator provides features to move in the room.
+ * @class Navigator
+ * @author Jakub Rychecký <jakub@rychecky.cz>
  */
 
 class Navigator
@@ -24,13 +24,10 @@ class Navigator
     public $history = [];
 
 
-
-
-
     /**
      * Navigator constructor.
-     * @param Map      $map
-     * @param Position $position
+     * @param Map      $map Map of the room
+     * @param Position $position Starting position
      */
 
     public function __construct(Map $map, Position $position)
@@ -40,64 +37,52 @@ class Navigator
         $this->addVisited();
     }
 
+    /**
+     *  Adds current position into the history of visited.
+     */
 
-    public function turnRight()
-    {
-        $rotate = ['N' => 'E', 'E' => 'S', 'S' => 'W', 'W' => 'N'];
-        $this->position->facing = $rotate[$this->position->facing];
-    }
-
-    public function turnLeft()
-    {
-        $rotate = ['N' => 'W', 'W' => 'S', 'S' => 'E', 'E' => 'N'];
-        $this->position->facing = $rotate[$this->position->facing];
-    }
-
-    private function advanceDestinationX(){
-        if ($this->position->facing == 'E') {
-            return $this->position->x + 1;
-        } elseif ($this->position->facing == 'W') {
-            return $this->position->x - 1;
-        }else{
-            return $this->position->x;
-        }
-    }
-
-    private function advanceDestinationY(){
-
-        if ($this->position->facing == 'N') {
-            return $this->position->y - 1;
-        }elseif ($this->position->facing == 'S') {
-            return $this->position->y + 1;
-        }else{
-            return $this->position->y;
-        }
-    }
-
-    public function advance()
-    {
-        if($this->isAdvancePossible()){
-            // Updates current position with designed coordination
-            $this->position = new Position($this->advanceDestinationX(), $this->advanceDestinationY(), $this->position->facing);
-            $this->addVisited();
-        }
-    }
-
-    public function isAdvancePossible(): bool {
-        $destination_x = $this->advanceDestinationX();
-        $destination_y = $this->advanceDestinationY();
-        return $this->map->isFree($destination_x, $destination_y);
-    }
-
-
-    private function addVisited()
+    private function addVisited(): void
     {
         $position_current = clone $this->position;
         $this->history = array_merge([$position_current], $this->history);
     }
 
+    /**
+     * Do advance in the direction of current facing.
+     * @return bool Has been advance done?
+     */
 
+    public function advance(): bool
+    {
+        // Designated advance position
+        $position = $this->position->buildAdvancePosition();
 
+        // Checks if position is valid in current map
+        if ($this->map->isPositionValid($position)) {
+            // Updates current position with designated coordination
+            $this->position = $position;
+            $this->addVisited();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    /**
+     * Facade for position turn to the right.
+     */
+
+    public function turnRight(): void
+    {
+        $this->position->turnRight();
+    }
+
+    /**
+     * Facade for position turn to the left.
+     */
+    public function turnLeft(): void
+    {
+        $this->position->turnLeft();
+    }
 
 }

@@ -1,48 +1,79 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: jaCUBE
- * Date: 26.04.2018
- * Time: 16:09
+ * Glorious Roomba.
+ * @class Roomba
+ * @author Jakub Rychecký <jakub@rychecky.cz>
  */
 
 class Roomba
 {
-    public $filepath_input;
-    public $filepath_output;
-    public $data_input;
-    public $data_output;
+    /**
+     * @var array Loaded JSON data and parsed into an array
+     */
+    public $loaded;
 
+    /**
+     * @var Navigator $navigator Roomba's sense in the room
+     */
     public $navigator;
+
+    /**
+     * @var Battery $battery Roomba battery
+     */
     public $battery;
 
 
-    public function __construct(String $filepath_input, string $filepath_output)
+    /**
+     * Roomba constructor.
+     * @param String $filepath Filepath to load init JSON
+     */
+
+    public function __construct(String $filepath)
     {
-        $this->filepath_input = $filepath_input;
-        $this->filepath_output = $filepath_output;
-        $this->data_input = JSON::load($this->filepath_input);
+        $this->loaded = JSON::load($filepath);
 
         $this->initBattery();
         $this->initNavigator();
     }
 
-    private function initBattery()
+
+    /**
+     * Creates Roomba's battery.
+     */
+
+    private function initBattery(): void
     {
-        $this->battery = new Battery($this->data_input['battery']);
+        $this->battery = new Battery($this->loaded['battery']);
     }
 
-    private function initNavigator()
+
+    /**
+     * Creates Navigator inside Roomba's brain.
+     */
+
+    private function initNavigator(): void
     {
-        $map = new Map($this->data_input['map']);
-        $start = &$this->data_input['start'];
+        // Map of the room
+        $map = new Map($this->loaded['map']);
+
+        // Starting position
+        $start = &$this->loaded['start'];
         $position = new Position($start['X'], $start['Y'], $start['facing']);
 
+        // Instance of Navigator
         $this->navigator = new Navigator($map, $position);
     }
 
+
+    /**
+     * Executes the command.
+     * @param string $command Command
+     */
+
     public function execute(string $command)
     {
+        // @TODO Refactor this into commander class
         if ($command == 'TL') {
             $this->navigator->turnLeft();
             $this->battery->drain(1);
@@ -52,25 +83,14 @@ class Roomba
         } elseif ($command == 'A') {
             $this->navigator->advance();
             $this->battery->drain(2);
-        }elseif ($command == 'B'){
+        } elseif ($command == 'B') {
+            // @TODO Back command
             $this->battery->drain(3);
-        }elseif($command == 'C'){
+        } elseif ($command == 'C') {
+            // @TODO Clean command
             $this->battery->drain(5);
         }
     }
 
-
-    public function output(){
-        $export = [];
-
-        foreach($this->navigator->history as $position){
-            $export['visited'][] = $position->toArray();
-        }
-
-        $export['final'] = $this->navigator->position->toArray();
-        $export['battery'] = $this->battery->current();
-
-        return $export;
-    }
 
 }
