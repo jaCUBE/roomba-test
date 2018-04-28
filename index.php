@@ -61,7 +61,24 @@
                 </div>
             <?php } ?>
         </div>
+        <?php
 
+        $r = new Roomba(file_get_contents('resources/data/test2.json'));
+
+        while ($r->commander->hasCommands()) {
+            $command = $r->commander->getCommand();
+            $r = Command::$command($r);
+            /* @var $r Roomba */
+
+            d($command);
+            d($r);
+            if ($command == 'B') {
+                d($r->navigator->position->buildBackPosition());
+            }
+            echo '<hr/>';
+        }
+
+        ?>
     </main>
     <footer></footer>
 </div>

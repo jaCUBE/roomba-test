@@ -23,6 +23,11 @@ class Roomba
      */
     public $battery;
 
+    /**
+     * @var Commander Queue for Roomba commands
+     */
+    public $commander;
+
 
     /**
      * Roomba constructor.
@@ -35,6 +40,7 @@ class Roomba
 
         $this->initBattery();
         $this->initNavigator();
+        $this->initCommander();
     }
 
 
@@ -65,5 +71,14 @@ class Roomba
         $this->navigator = new Navigator($map, $position);
     }
 
+
+    /**
+     *  Initializes commander for Rooomba.
+     */
+
+    protected function initCommander(): void
+    {
+        $this->commander = new Commander($this->data['commands']);
+    }
 
 }

@@ -43,6 +43,16 @@ class Navigator
     }
 
     /**
+     *  Adds current position into the history of visited.
+     */
+
+    private function addVisited(): void
+    {
+        $position_current = clone $this->position;
+        $this->visited = array_merge([$position_current], $this->visited);
+    }
+
+    /**
      * Do advance in the direction of current facing.
      * @return bool Has been advance done?
      */
@@ -51,6 +61,22 @@ class Navigator
     {
         // Designated advance position
         $position = $this->position->buildAdvancePosition();
+
+        // Checks if position is valid in current map
+        if ($this->map->isPositionValid($position)) {
+            // Updates current position with designated coordination
+            $this->position = $position;
+            $this->addVisited();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function back(): bool
+    {
+        // Designated advance position
+        $position = $this->position->buildBackPosition();
 
         // Checks if position is valid in current map
         if ($this->map->isPositionValid($position)) {
@@ -79,17 +105,6 @@ class Navigator
     public function turnLeft(): void
     {
         $this->position->turnLeft();
-    }
-
-
-    /**
-     *  Adds current position into the history of visited.
-     */
-
-    private function addVisited(): void
-    {
-        $position_current = clone $this->position;
-        $this->visited = array_merge([$position_current], $this->visited);
     }
 
     /**

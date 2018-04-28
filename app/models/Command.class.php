@@ -20,18 +20,6 @@ class Command
         'C' => 5
     ];
 
-
-    /**
-     * Gets battery cost for command.
-     * @param string $command Command
-     * @return int Battery cost
-     */
-
-    static function batteryCost(string $command): int
-    {
-        return (int)@self::$battery_cost[$command];
-    }
-
     /**
      * Turn left.
      * @param Roomba $roomba Roomba
@@ -46,6 +34,17 @@ class Command
         }
 
         return $roomba;
+    }
+
+    /**
+     * Gets battery cost for command.
+     * @param string $command Command
+     * @return int Battery cost
+     */
+
+    static function batteryCost(string $command): int
+    {
+        return (int)@self::$battery_cost[$command];
     }
 
     /**
@@ -73,7 +72,15 @@ class Command
     {
         // Performs advance only with enough battery
         if ($roomba->battery->isCharged(Command::batteryCost('A'))) {
-            $roomba->navigator->advance();
+            // Tries to advance, if obstacle, raise back off strategy into command queue
+            if ($roomba->navigator->advance()) {
+                // Roomba has clear space, advance successful, clear back off
+                $roomba->commander->clearBackoff();
+            } else {
+                // Roomba hits something, time for back off
+                $roomba->commander->raiseBackoff();
+            }
+
             $roomba->battery->drain(Command::batteryCost('A'));
         }
 
@@ -89,7 +96,7 @@ class Command
     {
         // Goes back only with enough battery
         if ($roomba->battery->isCharged(Command::batteryCost('B'))) {
-            // @TODO Back command
+            $roomba->navigator->back();
             $roomba->battery->drain(Command::batteryCost('B'));
         }
 

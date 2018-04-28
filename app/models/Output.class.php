@@ -16,7 +16,8 @@ class Output
      */
     static function json(Roomba $roomba)
     {
-        return json_encode(Output::array($roomba), JSON_PRETTY_PRINT);
+        // JSON_PRETTY_PRINT
+        return json_encode(Output::array($roomba));
     }
 
 
@@ -54,6 +55,8 @@ class Output
 
         // Battery level
         $export['battery'] = $roomba->battery->level;
+
+        // $export['history'] = $roomba->commander->history;
 
         return $export;
     }

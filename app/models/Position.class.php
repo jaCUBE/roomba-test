@@ -49,45 +49,43 @@ class Position
 
     public function buildAdvancePosition(): Position
     {
-        // Theoretic designated coordinates
-        $x = $this->calculateAdvancePositionX();
-        $y = $this->calculateAdvancePositionY();
+        $position = clone $this;
 
-        return new Position($x, $y, $this->facing);
-    }
-
-
-    /**
-     * Calculates X coord if moved with current facing.
-     * @return int X designated advance coord
-     */
-
-    private function calculateAdvancePositionX(): int
-    {
-        if ($this->facing == 'E') {
-            return $this->x + 1;
-        } elseif ($this->facing == 'W') {
-            return $this->x - 1;
-        } else {
-            return $this->x;
-        }
-    }
-
-
-    /**
-     * Calculates Y coord if moved with current facing.
-     * @return int Y designated advance coord
-     */
-
-    private function calculateAdvancePositionY(): int
-    {
-        if ($this->facing == 'N') {
-            return $this->y - 1;
+        if ($position->facing == 'E') {
+            $position->x++;
+        } elseif ($position->facing == 'W') {
+            $position->x--;
+        } elseif ($position->facing == 'N') {
+            $position->y--;
         } elseif ($this->facing == 'S') {
-            return $this->y + 1;
-        } else {
-            return $this->y;
+            $position->y++;
         }
+
+        return $position;
     }
+
+
+    /**
+     * Builds designated back position.
+     * @return Position Designated back position
+     */
+
+    public function buildBackPosition(): Position
+    {
+        $position = clone $this;
+
+        if ($position->facing == 'E') {
+            $position->x--;
+        } elseif ($position->facing == 'W') {
+            $position->x++;
+        } elseif ($position->facing == 'N') {
+            $position->y++;
+        } elseif ($this->facing == 'S') {
+            $position->y--;
+        }
+
+        return $position;
+    }
+
 
 }

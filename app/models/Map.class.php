@@ -23,7 +23,6 @@ class Map
         $this->map = $map;
     }
 
-
     /**
      * Checks if designated position is not an obstacle or outside of map.
      * @param Position $position Designated position
@@ -43,6 +42,11 @@ class Map
      */
     public function isReachable(int $x, int $y): bool
     {
-        return @$this->map[$x][$y] !== null;
+        return !in_array($this->getValue($x, $y), [null, 'C']);
+    }
+
+    public function getValue($x, $y)
+    {
+        return @$this->map[$y][$x];
     }
 }

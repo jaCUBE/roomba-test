@@ -4,7 +4,8 @@ require_once 'bootstrap.php';
 
 $r = new Roomba($_POST['data']);
 
-foreach ($r->data['commands'] as $command) {
+while ($r->commander->hasCommands()) {
+    $command = $r->commander->getCommand();
     $r = Command::$command($r);
 }
 
