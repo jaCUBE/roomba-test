@@ -31,7 +31,12 @@
         "facing": "N"
     },
     "commands": [
-        "A"
+        "A",
+        "TR",
+        "A",
+        "C",
+        "A",
+        "C"
     ],
-    "battery": 80
+    "battery": 40
 }

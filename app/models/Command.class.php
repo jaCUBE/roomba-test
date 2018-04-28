@@ -10,17 +10,6 @@ class Command
 {
 
     /**
-     * @var array Battery cost for every possible command
-     */
-    static public $battery_cost = [
-        'TL' => 1,
-        'TR' => 1,
-        'A' => 2,
-        'B' => 3,
-        'C' => 5
-    ];
-
-    /**
      * Turn left.
      * @param Roomba $roomba Roomba
      * @return Roomba Roomba after a command
@@ -28,9 +17,9 @@ class Command
     static function TL(Roomba $roomba): Roomba
     {
         // Turns left only with enough battery
-        if ($roomba->battery->isCharged(Command::batteryCost('TL'))) {
+        if ($roomba->battery->isCharged(Battery::cost('TL'))) {
             $roomba->navigator->turnLeft();
-            $roomba->battery->drain(Command::batteryCost('TL'));
+            $roomba->battery->drain(Battery::cost('TL'));
         }
 
         return $roomba;
@@ -55,9 +44,9 @@ class Command
     static function TR(Roomba $roomba): Roomba
     {
         // Turns right only with enough battery
-        if ($roomba->battery->isCharged(Command::batteryCost('TR'))) {
+        if ($roomba->battery->isCharged(Battery::cost('TR'))) {
             $roomba->navigator->turnRight();
-            $roomba->battery->drain(Command::batteryCost('TR'));
+            $roomba->battery->drain(Battery::cost('TR'));
         }
 
         return $roomba;
@@ -71,7 +60,7 @@ class Command
     static function A(Roomba $roomba): Roomba
     {
         // Performs advance only with enough battery
-        if ($roomba->battery->isCharged(Command::batteryCost('A'))) {
+        if ($roomba->battery->isCharged(Battery::cost('A'))) {
             // Tries to advance, if obstacle, raise back off strategy into command queue
             if ($roomba->navigator->advance()) {
                 // Roomba has clear space, advance successful, clear back off
@@ -81,7 +70,7 @@ class Command
                 $roomba->commander->raiseBackoff();
             }
 
-            $roomba->battery->drain(Command::batteryCost('A'));
+            $roomba->battery->drain(Battery::cost('A'));
         }
 
         return $roomba;
@@ -95,9 +84,9 @@ class Command
     static function B(Roomba $roomba): Roomba
     {
         // Goes back only with enough battery
-        if ($roomba->battery->isCharged(Command::batteryCost('B'))) {
+        if ($roomba->battery->isCharged(Battery::cost('B'))) {
             $roomba->navigator->back();
-            $roomba->battery->drain(Command::batteryCost('B'));
+            $roomba->battery->drain(Battery::cost('B'));
         }
 
         return $roomba;
@@ -113,30 +102,13 @@ class Command
     static function C(Roomba $roomba): Roomba
     {
         // Cleans only with enough battery
-        if ($roomba->battery->isCharged(Command::batteryCost('C'))) {
+        if ($roomba->battery->isCharged(Battery::cost('C'))) {
             $roomba->navigator->clean();
-            $roomba->battery->drain(Command::batteryCost('C'));
+            $roomba->battery->drain(Battery::cost('C'));
         }
 
         return $roomba;
     }
 
-
-    /**
-     * Performs list of commands.
-     * @param Roomba $roomba Roomba
-     * @param array  $command_list List of commands
-     * @return Roomba Roomba after the commands
-     */
-
-    static function execute(Roomba $roomba, array $command_list): Roomba
-    {
-        // Performing each command
-        foreach ($command_list as $command) {
-            $roomba = Command::$command($roomba);
-        }
-
-        return $roomba;
-    }
 
 }
