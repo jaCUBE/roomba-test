@@ -64,10 +64,10 @@ class Command
             // Tries to advance, if obstacle, raise back off strategy into command queue
             if ($roomba->navigator->advance()) {
                 // Roomba has clear space, advance successful, clear back off
-                $roomba->commander->clearBackoff();
+                $roomba->commander->resetBackOff();
             } else {
                 // Roomba hits something, time for back off
-                $roomba->commander->raiseBackoff();
+                $roomba->commander->addBackOff();
             }
 
             $roomba->battery->drain(Battery::cost('A'));
@@ -110,5 +110,22 @@ class Command
         return $roomba;
     }
 
+
+    /**
+     * Ba
+     * @return array
+     */
+    static function backoff(int $state = 0): array
+    {
+        $backoff = [
+            ['TR', 'A'],
+            ['TL', 'B', 'TR', 'A'],
+            ['TL', 'TL', 'A'],
+            ['TR', 'B', 'TR', 'A'],
+            ['TL', 'TL', 'A']
+        ];
+
+        return $backoff[$state];
+    }
 
 }

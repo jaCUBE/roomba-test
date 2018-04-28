@@ -17,7 +17,7 @@ class Output
     static function json(Roomba $roomba)
     {
         // JSON_PRETTY_PRINT
-        return json_encode(Output::array($roomba));
+        return json_encode(Output::array($roomba), JSON_PRETTY_PRINT);
     }
 
 
@@ -59,6 +59,19 @@ class Output
         // $export['history'] = $roomba->commander->history;
 
         return $export;
+    }
+
+
+    /**
+     * Saves output to the JSON file.
+     * @param string $filepath File destination
+     * @param string $content JSON content
+     */
+    static function save(string $filepath, string $content)
+    {
+        $fp = fopen($filepath, 'w');
+        fwrite($fp, $content);
+        fclose($fp);
     }
 
 }

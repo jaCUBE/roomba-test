@@ -49,8 +49,10 @@ class Position
 
     public function buildAdvancePosition(): Position
     {
+        // Designated position will be similar to this one
         $position = clone $this;
 
+        // Position advance shift according to facing
         if ($position->facing == 'E') {
             $position->x++;
         } elseif ($position->facing == 'W') {
@@ -72,8 +74,10 @@ class Position
 
     public function buildBackPosition(): Position
     {
+        // Designated position will be similar to this one
         $position = clone $this;
 
+        // Position back shift according to facing
         if ($position->facing == 'E') {
             $position->x--;
         } elseif ($position->facing == 'W') {
