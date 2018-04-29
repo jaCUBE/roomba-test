@@ -25,7 +25,7 @@ Example:
 When you have a server running, visit `index.php` which contains basic Bootstrap UI for comfortable testing.
 
 ## API (Somehow) Method
-Send input (see a section lower) through POST variable names `data` to:
+Send input (see a section lower) through POST variable names `map`, `start`, `commands` and `battery` to:
 `http://roomba.rychecky.cz/cleaning_robot.php`
 or run your very own `cleaning_robot.php` on your server.
 
@@ -50,4 +50,4 @@ Standard input data are in JSON format like this:
  ],  "start": {"X": 3, "Y": 0, "facing": "N"},
   "commands": [ "TL","A","C","A","C","TR","A","C"],
   "battery": 80
-}```
+}
