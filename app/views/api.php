@@ -1,4 +1,4 @@
-<?php $api = json_decode(file_get_contents('resources/data/test1.json'), true) ?>
+<?php $api = json_decode(file_get_contents('resources/data/test2.json'), true) ?>
 
 <form class="api" action="post">
     <b>Map:</b>
@@ -21,8 +21,14 @@
         <tr>
             <?php for ($i = 0; $i < count($api['commands']); $i++) { ?>
                 <td>
-                    <input type="text" class="form-control" name="commands[]"
-                           value="<?= $api['commands'][$i] ?>"/>
+                    <select name="commands[]" class="form-control">
+                        <option <?= $api['commands'][$i] == 'A' ? 'selected' : '' ?>>A</option>
+                        <option <?= $api['commands'][$i] == 'TR' ? 'selected' : '' ?>>TR</option>
+                        <option <?= $api['commands'][$i] == 'TL' ? 'selected' : '' ?>>TL</option>
+                        <option <?= $api['commands'][$i] == 'C' ? 'selected' : '' ?>>C</option>
+                        <option <?= $api['commands'][$i] == 'B' ? 'selected' : '' ?>>B</option>
+                        <option <?= $api['commands'][$i] == '' ? 'selected' : '' ?> value="">(nothin')</option>
+                    </select>
                 </td>
             <?php } ?>
         </tr>
@@ -42,8 +48,12 @@
                                value="<?= $api['start']['Y'] ?>" placeholder="Y"/>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="start[facing]"
-                               value="<?= $api['start']['facing'] ?>" placeholder="facing"/>
+                        <select name="start[facing]" class="form-control">
+                            <option <?= $api['start']['facing'] == 'N' ? 'selected' : '' ?>>N</option>
+                            <option <?= $api['start']['facing'] == 'E' ? 'selected' : '' ?>>E</option>
+                            <option <?= $api['start']['facing'] == 'S' ? 'selected' : '' ?>>S</option>
+                            <option <?= $api['start']['facing'] == 'W' ? 'selected' : '' ?>>W</option>
+                        </select>
                     </td>
                 </tr>
             </table>
