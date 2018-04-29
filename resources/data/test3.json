@@ -27,16 +27,15 @@
     ],
     "start": {
         "X": 0,
-        "Y": 0,
-        "facing": "N"
+        "Y": 1,
+        "facing": "E"
     },
     "commands": [
-        "A",
-        "TR",
+        "C",
         "A",
         "C",
         "A",
-        "C"
+        "A"
     ],
-    "battery": 40
+    "battery": 100
 }

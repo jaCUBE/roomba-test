@@ -4,6 +4,8 @@ $(function () {
         $('.input').val(content);
         run();
     });
+
+    $('.examples .btn:first').click();
 })
 
 
