@@ -26,7 +26,7 @@ class Commander
 
     public function __construct(array $commands)
     {
-        $this->queue = $commands;
+        $this->queue = array_filter($commands);
     }
 
 
