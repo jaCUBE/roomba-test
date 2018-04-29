@@ -25,5 +25,4 @@ if (!empty($argv[2])) {
     Output::save($argv[2], Output::json($roomba));
 }
 
-
 echo Output::json($roomba);

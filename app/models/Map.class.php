@@ -45,8 +45,17 @@ class Map
         return !in_array($this->getValue($x, $y), [null, 'C']);
     }
 
-    public function getValue($x, $y)
+
+    /**
+     * Gets map value for X and Y coords.
+     * @param int $x Coord X
+     * @param int $y Coord Y
+     * @return mixed Value of the map (S = surface, C = column, null = out of map)
+     */
+
+    public function getValue(int $x, int $y)
     {
         return @$this->map[$y][$x];
     }
+
 }
