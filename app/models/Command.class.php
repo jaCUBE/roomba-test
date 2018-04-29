@@ -20,20 +20,10 @@ class Command
         if ($roomba->battery->isCharged(Battery::cost('TL'))) {
             $roomba->navigator->turnLeft();
             $roomba->battery->drain(Battery::cost('TL'));
+            $roomba->record('TR');
         }
 
         return $roomba;
-    }
-
-    /**
-     * Gets battery cost for command.
-     * @param string $command Command
-     * @return int Battery cost
-     */
-
-    static function batteryCost(string $command): int
-    {
-        return (int)@self::$battery_cost[$command];
     }
 
     /**
@@ -47,6 +37,7 @@ class Command
         if ($roomba->battery->isCharged(Battery::cost('TR'))) {
             $roomba->navigator->turnRight();
             $roomba->battery->drain(Battery::cost('TR'));
+            $roomba->record('TR');
         }
 
         return $roomba;
@@ -65,6 +56,7 @@ class Command
             if ($roomba->navigator->advance()) {
                 // Roomba has clear space, advance successful, clear back off
                 $roomba->commander->resetBackOff();
+                $roomba->record('A');
             } else {
                 // Roomba hits something, time for back off
                 $roomba->commander->addBackOff();
@@ -87,6 +79,7 @@ class Command
         if ($roomba->battery->isCharged(Battery::cost('B'))) {
             $roomba->navigator->back();
             $roomba->battery->drain(Battery::cost('B'));
+            $roomba->record('B');
         }
 
         return $roomba;
@@ -103,8 +96,8 @@ class Command
     {
         // Cleans only with enough battery
         if ($roomba->battery->isCharged(Battery::cost('C'))) {
-            $roomba->navigator->clean();
             $roomba->battery->drain(Battery::cost('C'));
+            $roomba->record('C');
         }
 
         return $roomba;

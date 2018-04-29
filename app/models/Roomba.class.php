@@ -28,6 +28,11 @@ class Roomba
      */
     public $commander;
 
+    /**
+     * @var Recorder $recorder Recorder for Roomba history
+     */
+    public $recorder;
+
 
     /**
      * Roomba constructor.
@@ -38,9 +43,11 @@ class Roomba
     {
         $this->data = json_decode($data_json, true);
 
+        // Starts required Roomba systems
         $this->initBattery();
         $this->initNavigator();
         $this->initCommander();
+        $this->initRecorder();
     }
 
 
@@ -80,5 +87,23 @@ class Roomba
     {
         $this->commander = new Commander($this->data['commands']);
     }
+
+
+    /**
+     *  Initializes history recorder for Rooomba.
+     */
+
+    protected function initRecorder(): void
+    {
+        $this->recorder = new Recorder();
+        $this->record('START');
+    }
+
+
+    public function record(string $command): void
+    {
+        $this->recorder->addRecord($command, $this->navigator->position);
+    }
+
 
 }

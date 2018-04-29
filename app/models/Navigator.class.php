@@ -18,16 +18,6 @@ class Navigator
      */
     public $position;
 
-    /**
-     * @var Position[] List of visited position
-     */
-    public $visited = [];
-
-    /**
-     * @var Position[] List of cleaned position
-     */
-    public $cleaned = [];
-
 
     /**
      * Navigator constructor.
@@ -39,18 +29,8 @@ class Navigator
     {
         $this->map = $map;
         $this->position = $position;
-        $this->addVisited();
     }
 
-    /**
-     *  Adds current position into the history of visited.
-     */
-
-    private function addVisited(): void
-    {
-        $position_current = clone $this->position;
-        $this->visited = array_merge([$position_current], $this->visited);
-    }
 
     /**
      * Do advance in the direction of current facing.
@@ -66,25 +46,31 @@ class Navigator
         if ($this->map->isPositionValid($position)) {
             // Updates current position with designated coordination
             $this->position = $position;
-            $this->addVisited();
             return true;
         } else {
+            // Ouch! It's been a hit!
             return false;
         }
     }
 
+
+    /**
+     * Sends Roomba back in the opposite direction of current facing.
+     * @return bool Has been back done?
+     */
+
     public function back(): bool
     {
-        // Designated advance position
+        // Designated back position
         $position = $this->position->buildBackPosition();
 
         // Checks if position is valid in current map
         if ($this->map->isPositionValid($position)) {
             // Updates current position with designated coordination
             $this->position = $position;
-            $this->addVisited();
             return true;
         } else {
+            // Ouch! It's been a hit!
             return false;
         }
     }
@@ -99,22 +85,14 @@ class Navigator
         $this->position->turnRight();
     }
 
+
     /**
      * Facade for position turn to the left.
      */
+
     public function turnLeft(): void
     {
         $this->position->turnLeft();
-    }
-
-    /**
-     *  Adds current position into the history of visited.
-     */
-
-    public function clean(): void
-    {
-        $position_current = clone $this->position;
-        $this->cleaned = array_merge([$position_current], $this->cleaned);
     }
 
 }

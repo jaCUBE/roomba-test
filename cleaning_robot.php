@@ -17,6 +17,7 @@ if (!empty($argv[1])) {
 while ($roomba->commander->hasCommands()) {
     $command = $roomba->commander->getCommand();
     $roomba = Command::$command($roomba);
+    /** @var $roomba Roomba */
 }
 
 

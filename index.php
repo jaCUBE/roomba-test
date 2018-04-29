@@ -47,6 +47,7 @@
             </div>
         </div>
 
+        <hr/>
 
         Examples:
         <div class="examples btn-group">
@@ -61,6 +62,33 @@
                 </div>
             <?php } ?>
         </div>
+
+
+        <?php if (class_exists('Kint_Renderer')): ?>
+            <hr/>
+
+            Structure of Roomba for test2.json.
+            <?php
+
+            $roomba = new Roomba(file_get_contents('resources/data/test2.json'));
+
+            ?>
+
+            At the start: <?php d($roomba); ?>
+
+            <?php
+            // Roomba executes commands until it can
+            while ($roomba->commander->hasCommands()) {
+                $command = $roomba->commander->getCommand();
+                $roomba = Command::$command($roomba);
+                /** @var $roomba Roomba */
+            }
+
+            ?>
+
+            At the end: <?php d($roomba); ?>
+
+        <?php endif; ?>
     </main>
     <footer></footer>
 </div>

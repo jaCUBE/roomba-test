@@ -14,6 +14,7 @@ class Output
      * @param Roomba $roomba Roomba itself
      * @return string JSON of Roomba state
      */
+
     static function json(Roomba $roomba)
     {
         // JSON_PRETTY_PRINT
@@ -26,24 +27,19 @@ class Output
      * @param Roomba $roomba Roomba itself
      * @return string Array of Roomba state
      */
+
     static function array(Roomba $roomba)
     {
         $export = [];
 
         // Visited positions
-        foreach ($roomba->navigator->visited as $position) {
-            $export['visited'][] = [
-                'X' => $position->x,
-                'Y' => $position->y
-            ];
+        foreach ($roomba->recorder->getVisited() as $record) {
+            $export['visited'][] = $record->output();
         }
 
-        // Cleaned
-        foreach ($roomba->navigator->cleaned as $position) {
-            $export['cleaned'][] = [
-                'X' => $position->x,
-                'Y' => $position->y
-            ];
+        // Cleaned positions
+        foreach ($roomba->recorder->getCleaned() as $record) {
+            $export['cleaned'][] = $record->output();
         }
 
         // Final position
@@ -67,6 +63,7 @@ class Output
      * @param string $filepath File destination
      * @param string $content JSON content
      */
+
     static function save(string $filepath, string $content)
     {
         $fp = fopen($filepath, 'w');

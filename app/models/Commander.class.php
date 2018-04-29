@@ -78,18 +78,6 @@ class Commander
         $this->queue = array_values($this->queue);
     }
 
-
-    /**
-     * Adds array of commands into the front of queue.
-     * @param array $commands Commands in array
-     */
-    public function addCommands(array $commands): void
-    {
-        $this->queue = array_merge($commands, $this->queue);
-        $this->resetQueueKeys();
-    }
-
-
     /**
      *  Add back off strategy of appropriate state into the command queue.
      */
@@ -101,6 +89,15 @@ class Commander
         $this->backoff_state++;
     }
 
+    /**
+     * Adds array of commands into the front of queue.
+     * @param array $commands Commands in array
+     */
+    public function addCommands(array $commands): void
+    {
+        $this->queue = array_merge($commands, $this->queue);
+        $this->resetQueueKeys();
+    }
 
     /**
      *  Resets back off strategy state to zero.

@@ -8,12 +8,14 @@
 
 class Position
 {
+
     /**
      * Position constructor.
      * @param int    $x X coords
      * @param int    $y Y coord
      * @param string $facing Facing (N, E, S, W)
      */
+
     public function __construct(int $x, int $y, string $facing)
     {
         $this->x = $x;
@@ -25,6 +27,7 @@ class Position
     /**
      * Turns right (clockwise).
      */
+
     public function turnRight(): void
     {
         $rotate = ['N' => 'E', 'E' => 'S', 'S' => 'W', 'W' => 'N'];
@@ -35,6 +38,7 @@ class Position
     /**
      *  Turns left (anticlockwise).
      */
+
     public function turnLeft(): void
     {
         $rotate = ['N' => 'W', 'W' => 'S', 'S' => 'E', 'E' => 'N'];
