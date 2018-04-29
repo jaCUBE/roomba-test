@@ -26,7 +26,12 @@ class Commander
 
     public function __construct(array $commands)
     {
-        $this->queue = array_filter($commands);
+        // Filter only correct commands
+        $this->queue = array_filter($commands, function ($command) {
+            return in_array($command, Command::list());
+        });
+
+        $this->resetQueueKeys();
     }
 
 

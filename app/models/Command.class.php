@@ -122,4 +122,15 @@ class Command
         return @$backoff[$state];
     }
 
+
+    /**
+     * Provides the list of possible commands.
+     * @return array Possible commands
+     */
+
+    static function list()
+    {
+        return ['A', 'B', 'C', 'TR', 'TL'];
+    }
+
 }
