@@ -12,14 +12,19 @@ textarea {
 .examples .content {
     display: none;
 }
-
 .api .map input,
 .api .commands input,
 .api .start input {
     text-align: center;
 }
-
 .alert {
     margin-top: 8px;
+}
+
+footer {
+    border-top: 1px solid #CCCCCC;
+    margin-top: 50px;
+    padding-top: 10px;
+    text-align: right;
 }
 /*# sourceMappingURL=roomba.css.map */

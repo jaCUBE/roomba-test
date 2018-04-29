@@ -52,7 +52,13 @@
             <div class="tab-pane fade" id="structure" role="tabpanel"><?php include 'app/views/structure.php' ?></div>
         </div>
     </main>
-    <footer></footer>
+    <footer>
+        <a href="https://github.com/jaCUBE/roomba-test" class="btn btn-sm btn-dark">
+            <i class="fa fa-github"></i> GitHub
+        </a>
+
+        • rychecky 2018
+    </footer>
 </div>
 </body>
 </html>
