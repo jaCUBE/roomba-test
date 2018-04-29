@@ -8,8 +8,12 @@
 - PHP 7.1 or newer
 
 **Optional:**
-- [Composer](https://getcomposer.org/) (to run PHPUnit tests)
+- [Composer](https://getcomposer.org/) (in order to run PHPUnit tests and view structure of objects)
 
+## Installation
+Download a ZIP file or clone this repository.
+
+`git clone https://github.com/jaCUBE/roomba-test`
 
 ## CLI Method
 
@@ -24,12 +28,12 @@ Example:
 ## UI Method
 When you have a server running, visit `index.php` which contains basic Bootstrap UI for comfortable testing.
 
-## API (Somehow) Method
+## API Method
 Send input (see a section lower) through POST variable names `map`, `start`, `commands` and `battery` to:
 `http://roomba.rychecky.cz/cleaning_robot.php`
 or run your very own `cleaning_robot.php` on your server.
 
-![](http://roomba.rychecky.cz/resources/post.png)
+![](http://roomba.rychecky.cz/resources/api.png)
 
 ## PHPUnit Tests
 In case you want to run PHPUnit tests, install [Composer](https://getcomposer.org/) and run: `composer install` from project folder.
