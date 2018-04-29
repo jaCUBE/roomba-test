@@ -2,7 +2,7 @@
 
 /**
  * One record in Roomba wonderful history.
- * @class Recorder
+ * @class Record
  * @author Jakub Rychecký <jakub@rychecky.cz>
  */
 

@@ -36,74 +36,30 @@ class Roomba
 
     /**
      * Roomba constructor.
-     * @param string $data_json Input data
+     * @param Commander $commander Commander for Roomba
+     * @param Navigator $navigator Navigator with map inside for roomba
+     * @param Battery   $battery Battery for Roomba
      */
 
-    public function __construct(string $data_json)
+    public function __construct(Commander $commander, Navigator $navigator, Battery $battery)
     {
-        $this->data = json_decode($data_json, true);
+        $this->commander = $commander;
+        $this->navigator = $navigator;
+        $this->battery = $battery;
 
-        // Starts required Roomba systems
-        $this->initBattery();
-        $this->initNavigator();
-        $this->initCommander();
-        $this->initRecorder();
-    }
-
-
-    /**
-     * Creates Roomba's battery.
-     */
-
-    protected function initBattery(): void
-    {
-        $this->battery = new Battery($this->data['battery']);
-    }
-
-
-    /**
-     * Creates Navigator inside Roomba's brain.
-     */
-
-    protected function initNavigator(): void
-    {
-        // Map of the room
-        $map = new Map($this->data['map']);
-
-        // Starting position
-        $start = &$this->data['start'];
-        $position = new Position($start['X'], $start['Y'], $start['facing']);
-
-        // Instance of Navigator
-        $this->navigator = new Navigator($map, $position);
-    }
-
-
-    /**
-     *  Initializes commander for Rooomba.
-     */
-
-    protected function initCommander(): void
-    {
-        $this->commander = new Commander($this->data['commands']);
-    }
-
-
-    /**
-     *  Initializes history recorder for Rooomba.
-     */
-
-    protected function initRecorder(): void
-    {
+        // Initialize recorder with the first record
         $this->recorder = new Recorder();
         $this->record('START');
     }
 
 
+    /**
+     * Makes one record for executed command.
+     * @param string $command Executed command
+     */
     public function record(string $command): void
     {
         $this->recorder->addRecord($command, $this->navigator->position);
     }
-
 
 }

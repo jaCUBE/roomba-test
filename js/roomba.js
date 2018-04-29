@@ -14,10 +14,21 @@ function run() {
         type: 'POST',
         url: 'cleaning_robot.php',
         data: {
-            'data': $('.input').val()
+            'input': $('.input').val()
         },
         success: function (data, textStatus, xhr) {
             $('.output').val(data);
+        }
+    });
+}
+
+function api() {
+    $.ajax({
+        type: 'POST',
+        url: 'cleaning_robot.php',
+        data: $('.api').serialize(),
+        success: function (data, textStatus, xhr) {
+            $('.output-api').val(data);
         }
     });
 }
