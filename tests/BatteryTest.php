@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jaCUBE
- * Date: 26.04.2018
- * Time: 18:23
- */
 
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +6,7 @@ class BatteryTest extends TestCase
 {
 
     /**
-     * Tests if battery drain is possible.
+     * Tests the battery drain is possible.
      */
     public function testDrain()
     {
@@ -23,7 +17,7 @@ class BatteryTest extends TestCase
 
 
     /**
-     *  Tests if battery overdrains works as expected.
+     *  Tests the battery overdrain works as expected.
      */
     public function testOverdrain()
     {

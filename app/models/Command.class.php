@@ -112,8 +112,9 @@ class Command
 
 
     /**
-     * Ba
-     * @return array
+     * Provides back off strategy for desired state.
+     * @param int $state Back off strategy state (0-4)
+     * @return array Array of commands for back off strategy
      */
     static function backoff(int $state = 0): array
     {
@@ -125,7 +126,7 @@ class Command
             ['TL', 'TL', 'A']
         ];
 
-        return $backoff[$state];
+        return @$backoff[$state];
     }
 
 }

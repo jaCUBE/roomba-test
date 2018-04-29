@@ -10,11 +10,11 @@ class Position
 {
     /**
      * Position constructor.
-     * @param $x X coords
-     * @param $y Y coord
-     * @param $facing Facing (N, E, S, W)
+     * @param int    $x X coords
+     * @param int    $y Y coord
+     * @param string $facing Facing (N, E, S, W)
      */
-    public function __construct($x, $y, $facing)
+    public function __construct(int $x, int $y, string $facing)
     {
         $this->x = $x;
         $this->y = $y;
