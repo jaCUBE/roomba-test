@@ -55,7 +55,7 @@ class Roomba
      */
     public function record(string $command): void
     {
-        $this->recorder->addRecord($command, $this->navigator->position);
+        $this->recorder->addRecord($command, $this);
     }
 
 }

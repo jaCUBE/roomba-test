@@ -41,15 +41,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="structure-tab" data-toggle="tab" href="#structure" role="tab">
-                    <i class="fa fa-sitemap"></i> Structure
+                <a class="nav-link" id="structure-tab" data-toggle="tab" href="#debug" role="tab">
+                    <i class="fa fa-bug"></i> Debug
                 </a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="gui" role="tabpanel"><?php include 'app/views/gui.php' ?></div>
             <div class="tab-pane fade" id="api" role="tabpanel"><?php include 'app/views/api.php' ?></div>
-            <div class="tab-pane fade" id="structure" role="tabpanel"><?php include 'app/views/structure.php' ?></div>
+            <div class="tab-pane fade" id="debug" role="tabpanel"><?php include 'app/views/debug.php' ?></div>
         </div>
     </main>
     <footer>

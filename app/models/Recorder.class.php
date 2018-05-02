@@ -17,12 +17,12 @@ class Recorder
 
     /**
      * Adds one record into the history.
-     * @param string   $command Executed command
-     * @param Position $position Current position
+     * @param string $command Executed command
+     * @param Roomba $roomba Roomba itself
      */
-    public function addRecord(string $command, Position $position): void
+    public function addRecord(string $command, Roomba $roomba): void
     {
-        $this->records[] = new Record($command, $position);
+        $this->records[] = new Record($command, $roomba);
     }
 
 
@@ -68,9 +68,10 @@ class Recorder
     {
         $output = [];
 
-        // X, Y creates key and therefore, the record will be unique for coord
+        // X, Y creates key and therefore, the record will be unique for coordination and will not clutter output
         foreach ($array as $record) {
-            $output[$record->x . ', ' . $record->y] = $record;
+            $key = $record->position->x . ', ' . $record->position->y;
+            $output[$key] = $record;
         }
 
         // Remove unique keys and reverse the order

@@ -8,42 +8,44 @@
 
 class Record
 {
-    /**
-     * @var int $x Coordination in axis X
-     */
-    public $x;
-
-    /**
-     * @var int $y Coordination in axis Y
-     */
-    public $y;
-
-    /**
-     * @var string $facing Facing
-     */
-    public $facing;
 
     /**
      * @var string $command Executed command
      */
     public $command;
 
+    /**
+     * @var Position $position Position in this point of the history
+     */
+
+    public $position;
+
+    /**
+     * @var Commander $commander Commander in this point of the history
+     */
+    public $commander;
+
+    /**
+     * @var Battery $battery Battery in this point of the history
+     */
+    public $battery;
+
 
     /**
      * Record constructor.
-     * @param string   $command Executed command
-     * @param Position $position Current position
+     * @param string $command Executed command
+     * @param Roomba $roomba Roomba itself
      */
 
-    public function __construct(string $command, Position $position)
+    public function __construct(string $command, Roomba $roomba)
     {
         $this->command = $command;
 
-        // Deconstruction of position
-        // @TODO Or maybe to leave Position whole object?
-        $this->x = $position->x;
-        $this->y = $position->y;
-        $this->facing = $position->facing;
+        // It rips objects needed by history record from poor Roomba bot
+        // @TODO I guess I can do virtually whole Roomba snapshots now :)
+        $this->position = clone $roomba->navigator->position;
+        $this->commander = clone $roomba->commander;
+        $this->battery = clone $roomba->battery;
     }
 
 
@@ -54,7 +56,10 @@ class Record
 
     public function output()
     {
-        return ['X' => $this->x, 'Y' => $this->y];
+        return [
+            'X' => $this->position->x,
+            'Y' => $this->position->y
+        ];
     }
 
 }

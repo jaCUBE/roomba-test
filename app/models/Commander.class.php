@@ -36,6 +36,13 @@ class Commander
         $this->resetQueueKeys();
     }
 
+    /**
+     * Resets queue array keys in order to keep current command in the index of zero.
+     */
+    protected function resetQueueKeys(): void
+    {
+        $this->queue = array_values($this->queue);
+    }
 
     /**
      * Pop up current command for Roomba.
@@ -53,7 +60,6 @@ class Commander
         return $command ?? '';
     }
 
-
     /**
      * Checks if there are any commands in queue.
      * @return bool Are there any commands in queue?
@@ -63,7 +69,6 @@ class Commander
     {
         return !empty($this->queue);
     }
-
 
     /**
      * Marks current command as done.
@@ -75,16 +80,6 @@ class Commander
         unset($this->queue[0]);
         $this->resetQueueKeys();
     }
-
-
-    /**
-     * Resets queue array keys in order to keep current command in the index of zero.
-     */
-    protected function resetQueueKeys(): void
-    {
-        $this->queue = array_values($this->queue);
-    }
-
 
     /**
      *  Add back off strategy of appropriate state into the command queue.

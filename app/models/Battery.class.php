@@ -23,24 +23,6 @@ class Battery
         $this->level = $level;
     }
 
-    /**
-     * Provides battery cost for desired command.
-     * @param string $command Command
-     * @return int Battery cost
-     */
-
-    static function cost($command): int
-    {
-        $cost = [
-            'TL' => 1,
-            'TR' => 1,
-            'A' => 2,
-            'B' => 3,
-            'C' => 5
-        ];
-
-        return (int)$cost[$command];
-    }
 
     /**
      * Drains battery level.
@@ -58,6 +40,7 @@ class Battery
             return false;
         }
     }
+
 
     /**
      * Does battery contain enough charge for drain?
@@ -83,6 +66,26 @@ class Battery
 
         // Is battery charged to initialize backoff?
         return $this->isCharged(Battery::cost($command));
+    }
+
+
+    /**
+     * Provides battery cost for desired command.
+     * @param string $command Command
+     * @return int Battery cost
+     */
+
+    static function cost($command): int
+    {
+        $cost = [
+            'TL' => 1,
+            'TR' => 1,
+            'A' => 2,
+            'B' => 3,
+            'C' => 5
+        ];
+
+        return (int)$cost[$command];
     }
 
 }
