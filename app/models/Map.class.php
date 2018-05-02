@@ -42,7 +42,8 @@ class Map
      */
     public function isReachable(int $x, int $y): bool
     {
-        return !in_array($this->getValue($x, $y), ['null', 'C']);
+        // C = column, "null" wall, empty string = out of matrix
+        return !in_array($this->getValue($x, $y), ['null', 'C', '']);
     }
 
 
