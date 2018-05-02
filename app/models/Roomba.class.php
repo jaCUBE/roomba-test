@@ -8,10 +8,6 @@
 
 class Roomba
 {
-    /**
-     * @var array Loaded JSON data and parsed into an array
-     */
-    public $data;
 
     /**
      * @var Navigator $navigator Roomba's sense in the room

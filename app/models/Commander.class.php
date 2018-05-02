@@ -6,6 +6,8 @@
  * @author Jakub Rychecký <jakub@rychecky.cz>
  */
 
+// @TODO Maybe utilize Iterator (SplDoublyLinkedList)?
+
 class Commander
 {
     /**
@@ -83,6 +85,7 @@ class Commander
         $this->queue = array_values($this->queue);
     }
 
+
     /**
      *  Add back off strategy of appropriate state into the command queue.
      */
@@ -94,6 +97,7 @@ class Commander
         $this->backoff_state++;
     }
 
+
     /**
      * Adds array of commands into the front of queue.
      * @param array $commands Commands in array
@@ -103,6 +107,7 @@ class Commander
         $this->queue = array_merge($commands, $this->queue);
         $this->resetQueueKeys();
     }
+
 
     /**
      *  Resets back off strategy state to zero.

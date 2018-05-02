@@ -15,20 +15,20 @@ class Output
      * @return string JSON of Roomba state
      */
 
-    static function json(Roomba $roomba)
+    static function toJson(Roomba $roomba)
     {
         // JSON_PRETTY_PRINT
-        return json_encode(Output::array($roomba), JSON_PRETTY_PRINT);
+        return json_encode(Output::toArray($roomba), JSON_PRETTY_PRINT);
     }
 
 
     /**
      * Creates array output for Roomba state.
      * @param Roomba $roomba Roomba itself
-     * @return string Array of Roomba state
+     * @return array Array of Roomba state
      */
 
-    static function array(Roomba $roomba)
+    static function toArray(Roomba $roomba): array
     {
         $export = [];
 

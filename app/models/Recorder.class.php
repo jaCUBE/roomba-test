@@ -36,6 +36,7 @@ class Recorder
         return $this->getByCommands(['A', 'B', 'START']);
     }
 
+
     /**
      * Filters records by given commands.
      * @return Record[] Filtered records
@@ -56,6 +57,7 @@ class Recorder
         return $this->finishArray($output);
     }
 
+
     /**
      * Provides final beautification and trimming.
      * @param Record[] $array Array for records
@@ -74,6 +76,7 @@ class Recorder
         // Remove unique keys and reverse the order
         return array_reverse(array_values($output));
     }
+
 
     /**
      * Filters records cleaned by Roomba.
