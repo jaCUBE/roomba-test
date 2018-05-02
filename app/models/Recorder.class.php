@@ -19,11 +19,12 @@ class Recorder
      * Adds one record into the history.
      * @param string $command Executed command
      * @param Roomba $roomba Roomba itself
+     * @param bool   $hit Roomba hit the wall?
      * @return void
      */
-    public function addRecord(string $command, Roomba $roomba): void
+    public function addRecord(string $command, Roomba $roomba, $hit = false): void
     {
-        $this->records[] = new Record($command, $roomba);
+        $this->records[] = new Record($command, $roomba, $hit);
     }
 
 

@@ -54,10 +54,24 @@
             <td>is&hellip;</td>
 
             <td style="text-align: right">
-                <?php if ($record->commander->backoff_state) { // Red label for BACKOFF ?>
-                    <span class="badge badge-danger">B<?= $record->commander->backoff_state ?></span>
-                <?php } ?>
                 <span class="badge badge-info"><?= $record->command // Executed command  ?></span>
+            </td>
+
+
+            <td>
+                <?php if ($record->hit) { // Label for hit ?>
+                    <span class="badge badge-danger">
+                        <i class="fa fa-times"></i> OUCH!
+                    </span>
+                <?php } ?>
+            </td>
+
+            <td>
+                <?php if ($record->commander->backoff_state) { // Label for back off ?>
+                    <span class="badge badge-warning">
+                        <i class="fa fa-exclamation-triangle"></i>B<?= $record->commander->backoff_state ?>
+                    </span>
+                <?php } ?>
             </td>
 
             <td>&hellip;after execution, robot ends at</td>
@@ -69,13 +83,17 @@
             <td>facing</td>
 
             <td>
-                <span class="badge badge-secondary"><?= $record->position->facing ?></span>
+                <span class="badge badge-secondary">
+                    <?= $record->position->facing ?>
+                </span>
             </td>
 
-            <td>with batter level at</td>
+            <td>with battery level at</td>
 
             <td>
-                <span class="badge badge-light"><?= $record->battery->level ?></span>
+                <span class="badge badge-light">
+                    <?= $record->battery->level ?>
+                </span>
             </td>
         </tr>
     <?php } ?>

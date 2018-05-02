@@ -29,16 +29,20 @@ class Record
      */
     public $battery;
 
+    public $hit;
+
 
     /**
      * Record constructor.
      * @param string $command Executed command
      * @param Roomba $roomba Roomba itself
+     * @param bool   $hit Roomba hit the wall?
      */
 
-    public function __construct(string $command, Roomba $roomba)
+    public function __construct(string $command, Roomba $roomba, bool $hit)
     {
         $this->command = $command;
+        $this->hit = $hit;
 
         // It rips objects needed by history record from poor Roomba bot
         // @TODO I guess I can do virtually whole Roomba snapshots now :)
@@ -59,6 +63,17 @@ class Record
             'X' => $this->position->x,
             'Y' => $this->position->y
         ];
+    }
+
+
+    /**
+     * Is this history record a hit?
+     * @return bool
+     */
+
+    public function isHit(): bool
+    {
+        return (bool)$this->hit;
     }
 
 }

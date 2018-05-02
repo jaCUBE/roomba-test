@@ -26,12 +26,14 @@ footer {
     padding-top: 10px;
     text-align: right;
 }
-
 #debug form {
     float: left;
 }
-
 #debug form button {
     margin-right: 3px;
+}
+
+#debug .records tr:hover {
+    background: #EEEEEE;
 }
 /*# sourceMappingURL=roomba.css.map */

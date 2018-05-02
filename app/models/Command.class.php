@@ -58,17 +58,17 @@ class Command
     {
         // Performs advance only with enough battery
         if ($roomba->battery->isCharged(Battery::cost('A'))) {
-            // Tries to advance, if obstacle, raise back off strategy into command queue
-            if ($roomba->navigator->advance()) {
-                // Roomba has clear space, advance successful, clear back off
-                $roomba->commander->resetBackOff();
-                $roomba->record('A');
-            } else {
-                // Roomba hits something, time for back off
+            $hit = !$roomba->navigator->advance();
+
+            // Raises backoff, if advance resulted in hit
+            if ($hit) {
                 $roomba->commander->addBackOff();
+            } else {
+                $roomba->commander->resetBackOff();
             }
 
             $roomba->battery->drain(Battery::cost('A'));
+            $roomba->record('A', $hit);
         } elseif ($roomba->battery->isChargedForBackoff()) {
             // Not enough battery for command runs backoff
             $roomba->commander->addBackOff();

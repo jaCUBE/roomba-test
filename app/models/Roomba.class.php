@@ -52,11 +52,12 @@ class Roomba
     /**
      * Makes one record for executed command.
      * @param string $command Executed command
+     * @param bool   $hit Roomba hit the wall?
      * @return void
      */
-    public function record(string $command): void
+    public function record(string $command, bool $hit = false): void
     {
-        $this->recorder->addRecord($command, $this);
+        $this->recorder->addRecord($command, $this, $hit);
     }
 
 }
