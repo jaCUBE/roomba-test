@@ -21,6 +21,9 @@ class Command
             $roomba->navigator->turnLeft();
             $roomba->battery->drain(Battery::cost('TL'));
             $roomba->record('TR');
+        } elseif ($roomba->battery->isChargedForBackoff()) {
+            // Not enough battery for command runs backoff
+            $roomba->commander->addBackOff();
         }
 
         return $roomba;
@@ -38,6 +41,9 @@ class Command
             $roomba->navigator->turnRight();
             $roomba->battery->drain(Battery::cost('TR'));
             $roomba->record('TR');
+        } elseif ($roomba->battery->isChargedForBackoff()) {
+            // Not enough battery for command runs backoff
+            $roomba->commander->addBackOff();
         }
 
         return $roomba;
@@ -63,6 +69,9 @@ class Command
             }
 
             $roomba->battery->drain(Battery::cost('A'));
+        } elseif ($roomba->battery->isChargedForBackoff()) {
+            // Not enough battery for command runs backoff
+            $roomba->commander->addBackOff();
         }
 
         return $roomba;
@@ -80,6 +89,9 @@ class Command
             $roomba->navigator->back();
             $roomba->battery->drain(Battery::cost('B'));
             $roomba->record('B');
+        } elseif ($roomba->battery->isChargedForBackoff()) {
+            // Not enough battery for command runs backoff
+            $roomba->commander->addBackOff();
         }
 
         return $roomba;
@@ -98,6 +110,9 @@ class Command
         if ($roomba->battery->isCharged(Battery::cost('C'))) {
             $roomba->battery->drain(Battery::cost('C'));
             $roomba->record('C');
+        } elseif ($roomba->battery->isChargedForBackoff()) {
+            // Not enough battery for command runs backoff
+            $roomba->commander->addBackOff();
         }
 
         return $roomba;

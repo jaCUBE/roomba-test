@@ -70,4 +70,19 @@ class Battery
         return $this->level >= $threshold;
     }
 
+
+    /**
+     * Is the battery charged enough to initialize backoff strategy?
+     * @return bool Is charged for back off?
+     */
+
+    public function isChargedForBackoff(): bool
+    {
+        // The first command of the first backoff state
+        $command = Command::backoff(0)[0];
+
+        // Is battery charged to initialize backoff?
+        return $this->isCharged(Battery::cost($command));
+    }
+
 }
