@@ -48,7 +48,7 @@ class Battery
      * @return bool Is battery charged enough?
      */
 
-    public function isCharged(int $threshold = 0)
+    public function isCharged(int $threshold = 0): bool
     {
         return $this->level >= $threshold;
     }

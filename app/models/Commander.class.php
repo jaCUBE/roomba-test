@@ -38,6 +38,7 @@ class Commander
 
     /**
      * Resets queue array keys in order to keep current command in the index of zero.
+     * @return void
      */
     protected function resetQueueKeys(): void
     {
@@ -72,6 +73,7 @@ class Commander
 
     /**
      * Marks current command as done.
+     * @return void
      */
 
     public function doneCommand(): void
@@ -82,7 +84,8 @@ class Commander
     }
 
     /**
-     *  Add back off strategy of appropriate state into the command queue.
+     * Add back off strategy of appropriate state into the command queue.
+     * @return void
      */
 
     public function addBackOff(): void
@@ -96,6 +99,7 @@ class Commander
     /**
      * Adds array of commands into the front of queue.
      * @param array $commands Commands in array
+     * @return void
      */
     public function addCommands(array $commands): void
     {
@@ -105,7 +109,8 @@ class Commander
 
 
     /**
-     *  Resets back off strategy state to zero.
+     * Resets back off strategy state to zero.
+     * @return void
      */
 
     public function resetBackOff(): void

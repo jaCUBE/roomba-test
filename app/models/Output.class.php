@@ -62,9 +62,10 @@ class Output
      * Saves output to the JSON file.
      * @param string $filepath File destination
      * @param string $content JSON content
+     * @return void
      */
 
-    static function save(string $filepath, string $content)
+    static function save(string $filepath, string $content): void
     {
         $fp = fopen($filepath, 'w');
         fwrite($fp, $content);

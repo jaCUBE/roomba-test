@@ -17,7 +17,6 @@ class Record
     /**
      * @var Position $position Position in this point of the history
      */
-
     public $position;
 
     /**

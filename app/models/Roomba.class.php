@@ -52,6 +52,7 @@ class Roomba
     /**
      * Makes one record for executed command.
      * @param string $command Executed command
+     * @return void
      */
     public function record(string $command): void
     {

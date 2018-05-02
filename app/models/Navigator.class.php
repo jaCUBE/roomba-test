@@ -78,6 +78,7 @@ class Navigator
 
     /**
      * Facade for position turn to the right.
+     * @return void
      */
 
     public function turnRight(): void
@@ -88,6 +89,7 @@ class Navigator
 
     /**
      * Facade for position turn to the left.
+     * @return void
      */
 
     public function turnLeft(): void

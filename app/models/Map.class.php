@@ -51,12 +51,12 @@ class Map
      * Gets map value for X and Y coords.
      * @param int $x Coord X
      * @param int $y Coord Y
-     * @return mixed Value of the map (S = surface, C = column, null = out of map)
+     * @return string Value of the map (S = surface, C = column, null = out of map)
      */
 
-    public function getValue(int $x, int $y)
+    public function getValue(int $x, int $y): string
     {
-        return @$this->map[$y][$x];
+        return (string)@$this->map[$y][$x];
     }
 
 }

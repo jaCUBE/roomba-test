@@ -12,25 +12,25 @@ class RoombaFactory
     /**
      * Makes Roomba instance from initial data.
      * @param array $init Init data
-     * @return Roomba
+     * @return Roomba Brand new Roomba just straight out of factory
      */
 
     static function makeRoomba($init): Roomba
     {
-        // Commander with commands
+        // Gives Roomba a brain and self-preservation instinct
         $commander = new Commander($init['commands']);
 
-        // Instance of map
+        // Hic sunt leones
         $map = new Map($init['map']);
 
-        // Starting position
+        // Birthplace
         $start = &$init['start'];
         $position = new Position($start['X'], $start['Y'], $start['facing']);
 
-        // Instance of Navigator
+        // Gives Roomba sense of space
         $navigator = new Navigator($map, $position);
 
-        // Battery for Roomba
+        // Plug in a battery in Roomba
         $battery = new Battery($init['battery']);
 
         // Roomba leaves factory! Yay!

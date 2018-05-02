@@ -26,6 +26,7 @@ class Position
 
     /**
      * Turns right (clockwise).
+     * @return void
      */
 
     public function turnRight(): void
@@ -36,7 +37,8 @@ class Position
 
 
     /**
-     *  Turns left (anticlockwise).
+     * Turns left (anticlockwise).
+     * @return void
      */
 
     public function turnLeft(): void
