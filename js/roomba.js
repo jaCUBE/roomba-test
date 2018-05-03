@@ -10,7 +10,9 @@ $(function () {
 
     $('.map input').on('keyup', api_map_color).trigger('keyup');
     $('.start input').on('keyup', api_map_start).trigger('keyup');
-})
+
+    switch_tab();
+});
 
 
 function run() {
@@ -26,6 +28,7 @@ function run() {
     });
 }
 
+
 function api() {
     $.ajax({
         type: 'POST',
@@ -37,6 +40,7 @@ function api() {
     });
 }
 
+
 function api_map_color() {
     if ($(this).val() == 'S') {
         $(this).css({'background': '#c0f9d6'});
@@ -44,6 +48,7 @@ function api_map_color() {
         $(this).css({'background': '#f9e6c0'});
     }
 }
+
 
 function api_map_start() {
     var x = parseInt($('input[name="start[X]"]').val());
@@ -55,4 +60,11 @@ function api_map_start() {
 
     $('.map input').trigger('keyup');
     input.css({'background': '#db72ff'});
+}
+
+
+function switch_tab() {
+    var hash = window.location.hash;
+    var tab = $('.nav-link[href="' + hash + '"]');
+    tab.click();
 }
