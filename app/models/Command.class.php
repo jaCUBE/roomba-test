@@ -134,7 +134,7 @@ class Command
             ['TL', 'TL', 'A']
         ];
 
-        return @$backoff[$state];
+        return (array)@$backoff[$state];
     }
 
 
